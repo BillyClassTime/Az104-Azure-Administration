@@ -71,7 +71,7 @@ Locate the typeHandlerVersion property for the DSC extension resource on approxi
 
   | Property                   | Value                                                        |
   | :------------------------- | :----------------------------------------------------------- |
-  | Resource group             | **rg1lod28457866**                                           |
+  | Resource group             | **RG-Challenge03**                                           |
   | Vm Name                    | VM1                                                          |
   | Vm Size                    | Standard_DS1_v2                                              |
   | Admin Password             | zQw6j@AqgMA64+                                               |

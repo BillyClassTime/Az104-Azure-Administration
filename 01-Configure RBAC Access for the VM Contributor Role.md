@@ -68,7 +68,7 @@ You must created Azure account that contains a resource group named **RG-Challen
 
 ## Check your work
 
-- [ ] Confirm that new user account created above has the Virtual Machine Contributor role in the **RG-Challenge01** resource group. (MEDIA)
+- [ ] Confirm that new user account created above has the Virtual Machine Contributor role in the **RG-Challenge01** resource group. 
 
 # Verify VM Contributor Role permissions
 
@@ -86,7 +86,7 @@ You must created Azure account that contains a resource group named **RG-Challen
 
 ## Check your work
 
-- [ ] Confirm that **TestVM** is stopped. (OK)
+- [ ] Confirm that **TestVM** is stopped. 
 
 # Summary
 
