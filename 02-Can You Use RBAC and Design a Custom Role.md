@@ -62,7 +62,7 @@ You need to design a custom role named Virtual Machine Operator that allows the 
 
 Make sure you are signed in to Azure as the administrator, (you must use your account like owner of your subscription).
 
-Start a CloudShell session by using Windows PowerShell. If prompted to create storage, select Show advanced settings. Then choose the **RG-Challenge01cs** resource group (If not exists create it), a new storage account named **cloudshsa[your initials]** in the **East US** region, and a new file share named **shell**.
+Start a CloudShell session by using Windows PowerShell. If prompted to create storage, select Show advanced settings. Then choose the **RG-Challenge01cs** resource group (If not exists create it), a new storage account named ** ****RG-Challenge06cs** **** in the **East US** region, and a new file share named **shell**.
 
 Use the following command to identify the operations associated with virtual machines:
 
