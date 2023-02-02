@@ -178,7 +178,7 @@ Record the **public IP address** of **VM2** in the following **VM2 Public IP Add
 
   > Your output should be similar to the following screenshot:
   >
-  > ![The expected output from the traceroute tool](IMG/05-01.jpg)
+  > ![The expected output from the traceroute tool](img/05-01.jpg)
 
 ## Check your work
 
