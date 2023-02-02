@@ -39,13 +39,13 @@ Record the **public IP address** of **VM2** in the following **VM2 Public IP Add
 
 # Configure a front-end route table
 
-- Create a route table named app-frontend-rt by using the **RG5** resource group and the **East US** region, and then disable gateway route propagation.
+- Create a route table named app-frontend-rt by using the **RG05** resource group and the **East US** region, and then disable gateway route propagation.
 
   - In the upper-left corner, select **Home** to return to the Azure portal home page, and then select **Create a resource**.
 
   - In the Azure Marketplace, search for and select Route table, and then select **Create**.
 
-  - In Resource group, select **RG5**.
+  - In Resource group, select **RG05**.
 
   - In Region, ensure that **East US** is selected.
 
@@ -91,7 +91,7 @@ Record the **public IP address** of **VM2** in the following **VM2 Public IP Add
 
 # Configure a back-end route table
 
-- Create a Route table named app-backend-rt that uses the **RG5** resource group and the **East US** region, and then disable gateway route propagation.
+- Create a Route table named app-backend-rt that uses the **RG05** resource group and the **East US** region, and then disable gateway route propagation.
 - Add a route named to-frontend to the **app-backend-rt** route table, and then configure the route by using an address prefix of 10.1.0.0/24 and a **Virtual appliance** next hop address of 10.1.255.4.
 - Associate the **app-backend-rt** route table to the **backend** subnet in the **app-vnet** virtual network.
 
@@ -103,14 +103,14 @@ Record the **public IP address** of **VM2** in the following **VM2 Public IP Add
 
 # Enable IP forwarding on the virtual appliance
 
-- Configure an Azure Cloud Shell **Bash** session by using the existing **RG-Challenge06cs** resource group, the existing **cloudshsa[your initials]** storage account in the **East US** region, and a new file share named cloud-shell-share.
+- Configure an Azure Cloud Shell **Bash** session by using the existing **RG-Challenge05cs** resource group, the existing **cloudshsa[your initials]** storage account in the **East US** region, and a new file share named cloud-shell-share.
 
   - On the Azure portal toolbar, select the **Cloud Shell** icon.
 
   In the Cloud Shell window, select **Bash**, and then select **Show advanced settings**.
 
   - In Cloud Shell region, ensure that **East US** is selected.
-  - In Resource group, ensure that **Use existing** is selected, and then ensure that **RG-Challenge06cs** is selected.
+  - In Resource group, ensure that **Use existing** is selected, and then ensure that **RG-Challenge05cs** is selected.
   - In Storage account, ensure that **Use Existing** is selected, and then ensure that **cloudshsa[your initials]** is selected.
   - In File share, ensure that **Create new** is selected, and then enter cloud-shell-share.
   - Select **Create storage** to mount the storage account.
