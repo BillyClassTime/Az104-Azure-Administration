@@ -171,7 +171,7 @@ You will be using an Azure resource group named **RG-Challenge04**
 - In the Azure Marketplace, search for and select Snapshot.
 - On the Snapshot page, select **Create**.
 	![](img/04-03.jpg)
-- On the Create snapshot blade, in Resource group, select *corp-datalod[sequence]*, and then in Name, enter **DevFilesSnapshot1.**
+- On the Create snapshot blade, in Resource group, select **RG-Challenge04**, and then in Name, enter **DevFilesSnapshot1.**
 
 - In Source disk, select **devfiles**, and then in Storage type, select **Standard HDD**.
 	![](img/04-04.jpg)
