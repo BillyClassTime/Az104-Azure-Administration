@@ -43,7 +43,7 @@ backend  10.1.1.0/24
   - On the Create a secret blade, in Name, enter challenge-secret, in Value, enter **mykvstring**, and then select **Create**.
 
 
-- Configure an Azure Cloud Shell **Bash** session by using the **RG6cs** resource group, an storage account named **sacloudshell** in the **East US** region, and a new file share named **cloud-shell-share**. If the previous resources do not exist, then create then.
+- Configure an Azure Cloud Shell **Bash** session by using the **RG6cs** resource group, an storage account named **sacloudshell[initial]** in the **East US** region, and a new file share named **cloud-shell-share**. If the previous resources do not exist, then create then.
 
   - In the Cloud Shell window, select **Bash**, and then select **Show advanced settings**.
 
@@ -51,7 +51,7 @@ backend  10.1.1.0/24
 
   - In Resource group, ensure that **RG6cs** is selected.
 
-  - In Storage account, ensure **sacloudshell** is selected.
+  - In Storage account, ensure **sacloudshell[initial]** is selected.
 
   - In File share, ensure **cloud-shell-share** is selected.
 
@@ -194,7 +194,6 @@ backend  10.1.1.0/24
   
     > Because this is a Linux virtual machine, you will not see the password displayed in Cloud Shell.
   
-
 - Install the Azure command-line interface (CLI) on **VM2** by using the [curl](http://manpages.ubuntu.com/manpages/focal/en/man1/curl.1.html) command piped to the [sudo](http://manpages.ubuntu.com/manpages/focal/en/man8/sudo.8.html) [bash](http://manpages.ubuntu.com/manpages/focal/en/man1/bash.1.html) command.
 
   - Run the following command to install the Azure CLI:
