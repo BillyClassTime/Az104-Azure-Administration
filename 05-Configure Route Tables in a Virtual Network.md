@@ -143,9 +143,9 @@ Record the **public IP address** of **VM2** in the following **VM2 Public IP Add
 
 ## Check your work
 
-- Confirm that you created a Bash session in Cloud Shell.
-- Confirm that you connected to VM3 by using SSH.
-- Confirm that you enabled IP forwarding on VM3.
+- [ ] Confirm that you created a Bash session in Cloud Shell.
+- [ ] Confirm that you connected to VM3 by using SSH.
+- [ ] Confirm that you enabled IP forwarding on VM3.
 
 # Test routes by using the traceroute tool
 
@@ -182,9 +182,9 @@ Record the **public IP address** of **VM2** in the following **VM2 Public IP Add
 
 ## Check your work
 
-- Confirm that you connected to VM2 by using SSH.
-- Confirm that you installed the traceroute tool on VM2.
-- Confirm that you used the traceroute tool to verify that traffic sent to VM1 is being routed through VM3.
+- [ ] Confirm that you connected to VM2 by using SSH.
+- [ ] Confirm that you installed the traceroute tool on VM2.
+- [ ] Confirm that you used the traceroute tool to verify that traffic sent to VM1 is being routed through VM3.
 
 # Summary
 
