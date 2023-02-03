@@ -133,7 +133,11 @@ backend  10.1.1.0/24
 
   - On the Networking page, in Allow access from, select **Selected networks**, and then select **Add existing virtual networks**.
 
-    ![](img/06-03.jpg)
+    ![](img/06-03a.png)
+    
+    ![](img/06-03b.png)
+    
+    
 
 
   - On the Add networks blade, in Virtual networks, select the **VNET** check box, and then press **Tab**.
