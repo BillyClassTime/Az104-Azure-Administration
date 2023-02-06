@@ -6,7 +6,7 @@ You are an Azure® network administrator. You need to create a secure network fo
 
 ## Understand your environment
 
-You will be creating an Azure environment that contains two Azure resource groups named **RG10** and **NetworkWatcherRG** (East US), Inside a **RG10** a virtual network named **app-vnet** (Address space 10.1.0.0/16,  East US, subnets <u>frontend</u> 10.1.0.0/16 and <u>backend</u> 10.1.1.0/16), **app-vent-nsg** assosiate to both frontend and backend subnets) and two virtual machines named **VM1** (ubuntu 18.04, 10.1.0.4, East US) and **VM2** (ubuntu 18.04, 10.1.1.4, East US, ssh port open for inbound for both virtual machine) . 
+You will be creating an Azure environment that contains two Azure resource groups named **RG10** and **NetworkWatcherRG** (East US), Inside a **RG10** a virtual network named **app-vnet** (Address space 10.1.0.0/16,  East US, subnets <u>frontend</u> 10.1.0.0/24 and <u>backend</u> 10.1.1.0/24), **app-vnt-nsg** assosiate to both frontend and backend subnets) and two virtual machines named **VM1** (ubuntu 18.04, 10.1.0.4, East US) and **VM2** (ubuntu 18.04, 10.1.1.4, East US, ssh port open for inbound for both virtual machine) . 
 
 > Important: **do not start** until these resources have been created, you will not be guided through these tasks.
 
