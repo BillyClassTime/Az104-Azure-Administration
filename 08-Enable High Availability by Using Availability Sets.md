@@ -72,7 +72,7 @@ You will be using an Azure resource group named **RG08** that contains no resour
 
 # Configure an Azure load balancer
 
-- Create a public Azure load balancer named **LBFE-[sequence]** in the **RG08** resource group, use the **Basic** SKU, and then configure a new public, static IP address named **LBIP-[sequence]** for the load balancer.
+- Create a public Azure load balancer named **LBFE-[sequence]** in the **RG08** resource group, use the **Standard** SKU, and then configure a new public, static IP address named **LBIP-[sequence]** for the load balancer.
 
   - On the Azure portal home page, select **Create a resource** to open the Azure Marketplace.
 
@@ -80,7 +80,7 @@ You will be using an Azure resource group named **RG08** that contains no resour
 
   - On the Create load balancer blade, on the Basics page, in Resource group, select **RG08**, and then in Name, enter **LBFE-[sequence]**.
 
-  - In SKU, select Basic, and then select **Next : Frontend IP configuration**.
+  - In SKU, select **Standard**, and then select **Next : Frontend IP configuration**.
 
   - Select **Add a frontend IP configuration**, and then in name, enter **LBIP-[sequence]**.
 
