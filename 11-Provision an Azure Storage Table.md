@@ -8,8 +8,6 @@ You are a system administrator for a company that is migrating their document pr
 ## Understand your environment
 You must create an Azure Resource Group that contains a Azure Web App. The configuration of the Web must deploy the following application localized on GitHub. 
 
-```https://github.com/BillyClassTime/Provision_an_azure_storage_table.git```
-
 Take a moment to familiarize yourself with what you have in the environment.
 
 You must create the following resources:
@@ -17,7 +15,7 @@ You must create the following resources:
 - Resource group: **RG11**
 - App Service Plan: **Asp-[Initials]** (Windows, Standard S1)
 - Web app: **lods[Initials]**
-  - Configure **lods[Initials]** to deploy and build code from an External Git repository by using the master branch at https://github.com/BillyClassTime/ArchitectureChallange.git.
+  - Configure **lods[Initials]** to deploy and build code from an External Git repository by using the master branch at [BillyClassTime/Provision_an_azure_storage_table (github.com)](https://github.com/BillyClassTime/Provision_an_azure_storage_table).
     - Consider clone the above repository to your work folder, and then follow the tips of its readme.md file.
 
 # Configure account security by using role-based access control
