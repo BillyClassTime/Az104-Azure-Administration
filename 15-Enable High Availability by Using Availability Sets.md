@@ -62,7 +62,7 @@ You will be creating an Azure resource group named **RG15** that contains no res
 
 # Configure an Azure load balancer
 
-- Create a public Azure load balancer named **LBFE-[sequence]** in the **RG15** resource group, use the **Basic** SKU, and then configure a new public, static IP address named **LBIP-[sequence]** for the load balancer.
+- Create a public Azure load balancer named **LBFE-[sequence]** in the **RG15** resource group, use the **Standard** SKU, and then configure a new public, static IP address named **LBIP-[sequence]** for the load balancer.
 
 - Add a backend pool named **LBBE-[sequence]** to the **LBFE-[sequence]** load balancer, use the **RG15-vnet** virtual network, associate the backend pool to virtual machines, and then add **VMFE1-[sequence]** and **VMFE2-[sequence]** to the backend pool.
 
