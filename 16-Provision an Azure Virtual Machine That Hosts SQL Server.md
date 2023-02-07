@@ -54,7 +54,6 @@ You will be using an Azure resource group named **RG-16** that contains no resou
 
   > You can configure an instance of SQL Server in an Azure virtual machine image prior to deployment by using the [SQL Server settings](https://docs.microsoft.com/en-us/azure/azure-sql/virtual-machines/windows/create-sql-vm-portal#3-configure-sql-server-settings) page in the Azure portal.
 
-  
 
 ## Check your work
 
