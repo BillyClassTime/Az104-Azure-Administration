@@ -60,7 +60,7 @@ You will be using an Azure resource group named **RG13** that contains a storage
 
 ## Check your work
 
-- [ ] Confirm that you associated the **webapp201-nsg** network security group to the frontend subnet in the VNET virtual network.
+- [ ] Confirm that you associated the **webapp201-nsg** network security group to the **frontend** subnet in the **VNET** virtual network.
 - [ ] Confirm that you associated the **webapp201-asg** application security group to the NIC on **VM1**.
 - [ ] Confirm that you recorded the public IP address of **VM1**.
 
@@ -72,9 +72,10 @@ You will be using an Azure resource group named **RG13** that contains a storage
 
   > The SSH connection is expected to time out because the network security group does not yet have an incoming rule to allow SSH.
 
-## Close the Cloud Shell window.
+- Close the Cloud Shell window.
 
-- [ ] Check your work
+## Check your work
+
 - [ ] Confirm that you created a Bash session in Cloud Shell.
 - [ ] Confirm that you were unable to connect to the virtual machine by using SSH.
 

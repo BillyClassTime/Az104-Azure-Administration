@@ -7,7 +7,7 @@
 You are a system administrator for a company that is migrating its web services from its own datacenter to Azure®. You need to configure high availability by using availability sets. First, you will create an availability set. Next, you will deploy two Azure virtual machines to the availability set. Finally, you will configure load balancing.
 
 ## Understand your environment
-You will be creating an Azure resource group named **RG14** that contains no resources.
+You will be creating an Azure resource group named **RG15** that contains no resources.
 
 # Create an availability set
 
@@ -15,7 +15,7 @@ You will be creating an Azure resource group named **RG14** that contains no res
 
   Make sure you are signed in to Azure as the administrator.
 
-- Create an availability set named **AVSet-[sequence]** in the **RG14** resource group, configure 3 fault domains and 5 update domains, and then configure support for managed disks.
+- Create an availability set named **AVSet-[sequence]** in the **RG15** resource group, configure 3 fault domains and 5 update domains, and then configure support for managed disks.
 
 ## Check your work
 
@@ -27,7 +27,7 @@ You will be creating an Azure resource group named **RG14** that contains no res
 
   | Property             | Value                                     |
   | :------------------- | :---------------------------------------- |
-  | Resource group       | **RG14**                                  |
+  | Resource group       | **RG15**                                  |
   | Virtual machine name | **VMFE1-[sequence]**                      |
   | Availability options | **Availability set**                      |
   | Availability set     | **AVSet-[sequence]**                      |
@@ -42,7 +42,7 @@ You will be creating an Azure resource group named **RG14** that contains no res
 
   | Property             | Value                                     |
   | :------------------- | :---------------------------------------- |
-  | Resource group       | **RG14**                                  |
+  | Resource group       | **RG15**                                  |
   | Virtual machine name | **VMFE2-[sequence]**                      |
   | Availability options | **Availability set**                      |
   | Availability set     | **AVSet-[sequence]**                      |
@@ -62,9 +62,9 @@ You will be creating an Azure resource group named **RG14** that contains no res
 
 # Configure an Azure load balancer
 
-- Create a public Azure load balancer named **LBFE-[sequence]** in the **RG14** resource group, use the **Basic** SKU, and then configure a new public, static IP address named **LBIP-[sequence]** for the load balancer.
+- Create a public Azure load balancer named **LBFE-[sequence]** in the **RG15** resource group, use the **Basic** SKU, and then configure a new public, static IP address named **LBIP-[sequence]** for the load balancer.
 
-- Add a backend pool named **LBBE-[sequence]** to the **LBFE-[sequence]** load balancer, use the **RG14-vnet** virtual network, associate the backend pool to virtual machines, and then add **VMFE1-[sequence]** and **VMFE2-[sequence]** to the backend pool.
+- Add a backend pool named **LBBE-[sequence]** to the **LBFE-[sequence]** load balancer, use the **RG15-vnet** virtual network, associate the backend pool to virtual machines, and then add **VMFE1-[sequence]** and **VMFE2-[sequence]** to the backend pool.
 
 - Add a health probe named **LBPB-[sequence]** on TCP port 80 (HTTP) to the **LBFE-[sequence]** load balancer, and then add a load balancing rule named **LBRL-[sequence]** for TCP port 80 (HTTP).
 

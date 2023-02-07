@@ -36,15 +36,15 @@ You will create the necessary resources to complete the challenge. Azure environ
 
 - In Cloud Shell, create an [SSH](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/mac-create-ssh-keys#ssh-into-your-vm) connection to the virtual machine by using azureuser@<PIP>.
 
-- Update the Linux virtual machine by using the **sudo apt-get tool** and the update command.
+- Update the Linux virtual machine by using the **sudo apt-get update** and the update command.
 
 - Close the **Cloud Shell** window.
 
 ## Check your work
 
 - [ ] Confirm that you created a Bash session in Cloud Shell.
-- [ ] Confirm that you created a Linux virtual machine named VM1 in the **RG12** resource group.
-- [ ] Confirm that you recorded the public IP address of VM1 for later use.
+- [ ] Confirm that you created a Linux virtual machine named **VM1** in the **RG12** resource group.
+- [ ] Confirm that you recorded the public IP address of **VM1** for later use.
 - [ ] Confirm that you updated the VM1 virtual machine
 
 # Create an action group
@@ -70,7 +70,7 @@ You will create the necessary resources to complete the challenge. Azure environ
 
 ## Check your work
 
-- [ ] Confirm that you created an action group named Cloud Operations that is configured to send an email to your personal email account.
+- [ ] Confirm that you created an action group named **Cloud Operations** that is configured to send an email to your personal email account.
 
 # Create a virtual machine metric alert
 
@@ -90,7 +90,7 @@ You will create the necessary resources to complete the challenge. Azure environ
 
 ## Check your work
 
-- [ ] Confirm that you created an alert rule named Percentage CPU greater than 85 that will send an email to the Cloud Operations alert group when the average percentage CPU on VM1 is greater than a threshold of 85 for a period of one minute.
+- [ ] Confirm that you created an alert rule named **Percentage CPU greater than 85** that will send an email to the Cloud Operations alert group when the average percentage CPU on **VM1** is greater than a threshold of 85 for a period of one minute.
 
 # Test the near real-time metric alert
 
