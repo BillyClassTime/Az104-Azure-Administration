@@ -71,7 +71,7 @@ You will be creating the following resources:
 > You may see the following notification message in the Azure portal: "Installation has started on 1 virtual machines. It may take a while to complete." You can continue with this task without waiting for the installation to complete.
 
 - Configure an Azure Cloud Shell **PowerShell** session by using the existing **RG18** resource group, the existing storage account in the **East US** region, and a new file share named cloud-shell.
-- Retrieve the status of the IaaSAntimalware extension on the **VM2** virtual machine in the **RG18** resource group by using the Get-AzureRMVMExtension cmdlet in the Azure Cloud Shell.
+- Retrieve the status of the IaaSAntimalware extension on the **VM2** virtual machine in the **RG18** resource group by using the Get-AzVMExtension cmdlet in the Azure Cloud Shell.
 - Switch to the **VM2** Remote Desktop window, open **Task Manager**, and then verify that the **Antimalware Service Executable** process is running.
 
 ## Check your work
