@@ -8,21 +8,23 @@
 You are an Azure® administrator responsible for managing a virtual network. You need to configure a virtual network peering between the virtual networks for two applications hosted in different Azure regions. First, you will review existing Azure resources, and then you will verify that you are unable to add virtual network peerings between the existing virtual networks. Next, you will remove overlapping address spaces in the virtual network configuration. Finally, you will configure global virtual network peering between the two virtual networks.
 
 ## Understand your environment
-You will be using an Azure resource group named **RG7** that contains an existing storage account named sa[Initials] for use with Cloud Shell, two virtual networks named **VNET** (East US)  and **VNET2** (East US 2), both with Address space 10.1.0.0/16 and  subnet 1 10.1.0.0./24, and two virtual machines named **VM1** (East US) and **VM2** (East US 2).
+You will be creating an Azure resource group named **RG7** that contains an existing storage account named sa[Initials] for use with Cloud Shell, two virtual networks named **VNET** (East US)  and **VNET2** (East US 2), both with Address space 10.1.0.0/16 and  subnet 1 10.1.0.0./24, and two virtual machines named **VM1** (East US) and **VM2** (East US 2).
 
 > Important: **do not start** until these resources have been created, you will not be guided through these tasks. 
 
 # Review the created Azure resources
 
-Sign in to the Azure portal as as your user account and password.
+- Sign in to the Azure portal as as your user account and password.
 
-- Record the public IP address of **VM1** in the following Public IP Address text box:
+  - Record the public IP address of **VM1** in the following Public IP Address text box:
 
-- Public IP Address
 
-  ```
-  ```
-  
+  - Public IP Address
+
+    ```
+    ```
+    
+
 
 > Remember: You will use the public IP address in an upcoming task.
 
