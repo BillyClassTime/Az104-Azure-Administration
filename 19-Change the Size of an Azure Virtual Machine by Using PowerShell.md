@@ -30,8 +30,8 @@ You will be creating the following resources:
 
 ## Check your work
 
-- Confirm that a file share named **cloud-shell** exists in the storage account in the **RG19** resource group.
-- Confirm that a Cloud Shell environment using **PowerShell** is open.
+- [ ] Confirm that a file share named **cloud-shell** exists in the storage account in the **RG19** resource group.
+- [ ] Confirm that a Cloud Shell environment using **PowerShell** is open.
 
 # View available virtual machine sizes in your location
 
