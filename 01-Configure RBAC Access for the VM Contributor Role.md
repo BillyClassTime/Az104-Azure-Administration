@@ -1,97 +1,81 @@
-# Configure RBAC Access for the VM Contributor Role
+# Configure RBAC Access for the Virtual Machine Contributor Role
 
-### Challenge Overview
+## Challenge overview
 
-## Understand the scenario
+Assign a user the built-in **Virtual Machine Contributor** role at resource-group scope. Verify that the user can manage a virtual machine but cannot grant Azure RBAC access. This demonstrates least-privilege access for VM operations.
 
-You are an IT manager who has a mandate to implement the principle of least privilege as a best practice whenever possible. You want to ensure that some members of your IT staff are able manage virtual machines, but cannot assign permissions to the machines or manage the underlying Azure fabric. You determine that the best way to accomplish this is to assign some members of your IT staff the built-in [Virtual Machine Contributor role](https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#virtual-machine-contributor) to create and manage virtual machines.
+## Prerequisites
 
-In this Challenge Lab, you will create an Azure virtual machine, assign the Virtual Machine Contributor role to an existing user, and then verify the role permissions.
+- An Azure subscription where you can create resources and role assignments (Owner or User Access Administrator plus the permissions needed to create the resources).
+- Two accounts: an administrator account and a separate test user. The test user must be able to sign in to the Azure portal.
+- A resource group named **RG-Challenge01** in **East US**, containing a virtual network named **vnet** with a subnet named **Subnet1**. Create these beforehand if needed.
+- Azure Cloud Shell with the **PowerShell** environment. On first use, follow the portal prompts to configure persistent storage. The storage account and file share used by Cloud Shell are separate from the lab resource group.
 
-## Understand your environment
+Do not use a shared or real password in the lab instructions. Enter a unique password when prompted and store it securely.
 
-You must created Azure account that contains a resource group named **RG-Challenge01**. You will use your user account like owner of subscription to create resources and assign role permissions, and then you must create other user account to test the role permissions, (You must record the new user account name and password, you will use it later.
+## Create the virtual machine
 
+1. Sign in to the Azure portal as the administrator and open **Cloud Shell**. Select **PowerShell**.
+2. Confirm the active subscription and select the one containing **RG-Challenge01**:
 
-# Create an Azure VM by using the Azure Cloud Shell
+   ```powershell
+   Get-AzContext
+   # If needed:
+   Set-AzContext -Subscription "<subscription-id>"
+   ```
 
-- Sign in to the Azure portal as your user account and password.
+3. Create a Windows Server 2025 VM in the existing virtual network and subnet, matching the course labs' Windows Server version. The `New-AzVM` parameter set below is supported by the current Az.Compute module. It uses the available `Standard_D2s_v7` size and the Windows Server 2025 Datacenter Gen2 image. Check size availability and quota in your subscription and region before deployment. When prompted, enter a unique local administrator password:
 
-- Configure an Azure Cloud Shell **PowerShell** session by using the **RG-Challenge01cs** resource group (If not exists create it), a new storage account named **cloudshsa[your initials]** in the **East US** region, and a new file share named **shell**.
+   ```powershell
+   $credential = Get-Credential -UserName "student" -Message "Enter a unique VM administrator password"
+   New-AzVM `
+       -ResourceGroupName "RG-Challenge01" `
+       -Location "East US" `
+       -Name "TestVM" `
+       -VirtualNetworkName "vnet" `
+       -SubnetName "Subnet1" `
+       -Size "Standard_D2s_v7" `
+       -Image "MicrosoftWindowsServer:WindowsServer:2025-datacenter-g2:latest" `
+       -Credential $credential
+   ```
 
-- Create a Windows Datacenter 2016 Azure VM by using the Azure Cloud Shell [New-AzVM](https://docs.microsoft.com/en-us/powershell/module/az.compute/new-azvm?view=azps-8.2.0) cmdlet and the information in the following table. For any property that is not specified, use the default value.
+   See Microsoft's [New-AzVM reference](https://learn.microsoft.com/en-us/powershell/module/az.compute/new-azvm) and [Windows VM PowerShell quickstart](https://learn.microsoft.com/en-us/azure/virtual-machines/windows/quick-create-powershell) for current syntax and image details.
 
-  | Property             | Value              |
-  | -------------------- | ------------------ |
-  | Resource group       | **RG-Challenge01** |
-  | Virtual machine name | TestVM             |
-  | Location             | East US            |
-  | Vnet                 | **vnet**           |
-  | Subnet Name          | **Subnet1**        |
-  | Size                 | Standard_DS1_v2    |
-  | User                 | student            |
-  | Password             | AzurePassw0rd!     |
+4. Wait for deployment to finish, then verify the VM exists:
 
+   ```powershell
+   Get-AzVM -ResourceGroupName "RG-Challenge01" -Name "TestVM" -Status
+   ```
 
-> Run the following Powershell Command to create a new Azure Virtual Machine in the **RG-Challenge01** resource group:
->
-> ```
-> New-AzVM -ResourceGroupName "RG1lod28450521" -Location "East US" -Name "TestVM" -VirtualNetworkName "vnet" -SubnetName "Subnet1" -Size "Standard_DS1_v2"
-> ```
->
-> When prompted, enter student as the User and AzurePassw0rd! as the password for **TestVM**.
->
-> Wait for the VM creation to complete.
+### Check your work
 
-## Check your work
+- [ ] Cloud Shell is running PowerShell in the intended subscription.
+- [ ] **TestVM** is deployed in **RG-Challenge01**.
 
-- [ ] Confirm that you configured Azure Cloud Shell.
-- [ ] Confirm that you created a virtual machine named **TestVM** by using Azure Cloud Shell.
+## Assign the role to the test user
 
-# Add the Virtual Machine Contributor Role assignment to a user account
+1. In the Azure portal, open **Resource groups** > **RG-Challenge01** > **Access control (IAM)**.
+2. Select **Add** > **Add role assignment**.
+3. Select **Virtual Machine Contributor**, then **Next**.
+4. Select the test user as a member, then review and assign the role.
+5. In **Role assignments**, verify that the test user has **Virtual Machine Contributor** at the **RG-Challenge01** scope.
 
-- Assign the new account create above the Virtual Machine Contributor role in the **RG-Challenge01** resource group.
+### Check your work
 
-  > <details><summary style="list-style: none; margin: 0px;">Expand this hint for guidance on assigning the Virtual Machine Contributor role.</summary><p></p></details>
-  >
-  > On the Azure portal home page, select Resource groups, and then select **RG-Challenge01**.
-  >
-  > On the **RG-Challenge01** resource menu, select Access control (IAM), and then in Grant access to this resource, select Add role assignment.
-  >
-  > On the Add role assignment blade, in Role, search for and select Virtual Machine Contributor, and then select Next.
-  >
-  > In Members, select Select members.
-  >
-  > On the Select members blade, search for and select the new user created above, and then select **Select**.
-  >
-  > On the Add role assignment blade, select **Next**, and then select **Review** **+ assign**.
+- [ ] The assignment names the intended test user, role, and resource-group scope.
 
-## Check your work
+## Verify the test user's permissions
 
-- [ ] Confirm that new user account created above has the Virtual Machine Contributor role in the **RG-Challenge01** resource group. 
+1. Sign out of the administrator account and sign in as the test user. If the new assignment is not yet visible, sign out and back in again after a few minutes.
+2. Open **TestVM** in the portal and select **Stop**. Confirm the VM reaches the **Stopped (deallocated)** state.
+3. Open **Access control (IAM)** for **RG-Challenge01** and try to add a role assignment. Confirm that the user cannot complete the assignment because this role does not grant permission to assign Azure RBAC roles. Cancel the operation.
+4. Sign back in as the administrator and start **TestVM** if you want to keep it available. Delete the lab resources when finished to avoid ongoing charges.
 
-# Verify VM Contributor Role permissions
+### Check your work
 
-- Sign out of the Azure portal, and then sign in as the new account created above and password.
+- [ ] The test user can stop **TestVM**.
+- [ ] The test user cannot grant Azure RBAC role assignments.
 
-- Stop the **TestVM**.
+## Summary
 
-  > <details><summary style="list-style: none; margin: 0px;">Expand this hint for guidance on stopping a virtual machine.</summary></details>
-  >
-  > On the Azure portal home page, select Virtual machines, and then select **TestVM**.
-  >
-  > On the **TestVM** Overview page, on the command bar, select Stop, and then select Yes.
-  >
-  > Wait for the Status of the **TestVM** to change from Running to Stopped— You may have to refresh the page to view the changes.
-
-## Check your work
-
-- [ ] Confirm that **TestVM** is stopped. 
-
-# Summary
-
-Congratulations, you have completed the **Configure RBAC Access for VM Contributor** Challenge Lab. You have accomplished the following:
-
-- Created an Azure VM by using the Azure Cloud Shell.
-- Added the Virtual Machine Contributor Role assignment to a user account.
-- Verified VM Contributor Role permissions.
+You created a VM, assigned **Virtual Machine Contributor** at resource-group scope, and verified both an allowed VM action and the role's access-assignment boundary.
