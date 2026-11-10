@@ -6,10 +6,10 @@ Assign a user the built-in **Virtual Machine Contributor** role at resource-grou
 
 ## Prerequisites
 
-- An Azure subscription where you can create resources and role assignments (Owner or User Access Administrator plus the permissions needed to create the resources).
-- Two accounts: an administrator account and a separate test user. The test user must be able to sign in to the Azure portal.
-- A resource group named **RG-Challenge01** in **East US**, containing a virtual network named **vnet** with a subnet named **Subnet1**. Create these beforehand if needed.
-- Azure Cloud Shell with the **PowerShell** environment. On first use, follow the portal prompts to configure persistent storage. The storage account and file share used by Cloud Shell are separate from the lab resource group.
+- An Azure subscription and an administrator account with permission to create the VM and its related resources in **RG-Challenge01** (for example, **Contributor** at that resource-group scope) and permission to assign Azure RBAC roles there (`Microsoft.Authorization/roleAssignments/write`, such as **Role Based Access Control Administrator**, **User Access Administrator**, or **Owner**).
+- A separate test user in the same Microsoft Entra tenant as the subscription. The test user must be able to sign in to the Azure portal.
+- A resource group named **RG-Challenge01** in **East US**, containing a virtual network named **vnet** with a subnet named **Subnet1**. Have the administrator create these beforehand if needed.
+- Azure Cloud Shell using the **PowerShell** environment. Persistent storage is optional for this lab; if you enable it, Cloud Shell stores it in a storage account and file share separate from the lab resource group.
 
 Do not use a shared or real password in the lab instructions. Enter a unique password when prompted and store it securely.
 

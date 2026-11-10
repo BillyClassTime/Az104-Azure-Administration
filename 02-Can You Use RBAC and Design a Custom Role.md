@@ -1,125 +1,115 @@
 # Can You Use RBAC and Design a Custom Role?
 
-### Challenge Overview
+## Challenge overview
 
-## Understand the scenario
+As an Azure administrator, delegate access to a developer so they can manage storage accounts, virtual machines, and network resources in one resource group. Then design a custom role for basic VM operations and verify that the developer cannot create role definitions.
 
-You are an Azure administrator for a company that is migrating its primary web app from its on-premises datacenter to Azure. You need to allow developers to create and deploy Azure virtual machines by assigning an appropriate role. You also need to design a custom role definition, as a proof of concept.
+## Prerequisites
 
-## Understand your environment
+- An active Azure subscription and an administrator account that can create resources in **RG-Challenge02** and assign Azure RBAC roles at that scope. For example, use **Contributor** plus **Role Based Access Control Administrator** at the resource-group scope, or **Owner**.
+- An existing developer user in the same Microsoft Entra tenant as the subscription. The user must be able to sign in to the Azure portal and must not have other inherited Azure roles that would broaden the permissions being tested.
+- An empty resource group named **RG-Challenge02** in **East US**. If it does not exist, the administrator needs permission at subscription scope to create it.
+- Azure Cloud Shell with **PowerShell**. Persistent storage is optional for this lab; the custom role definition file only needs to remain available during the Cloud Shell session.
 
-You are provided with an Azure resource group that initially contains no resources. You will create the necessary resources to complete the challenge.
+Use a unique, compliant VM password during deployment. Do not put real credentials in lab files. The VM and storage account can incur charges; delete the lab resource group when finished.
 
-You can expect to find the following resource:
+## Assign built-in roles to the developer
 
-Resource group **RG-Challenge02**
+1. Sign in to the Azure portal as the administrator.
+2. Open **Resource groups** > **RG-Challenge02** > **Access control (IAM)** > **Add** > **Add role assignment**.
+3. Assign each of these built-in roles to the developer at the **RG-Challenge02** scope:
 
-# Assign built-in roles and verify permissions
+   | Role | Purpose |
+   | --- | --- |
+   | **Storage Account Contributor** | Create and manage storage accounts. This role does not grant access to storage data. |
+   | **Virtual Machine Contributor** | Create and manage virtual machines. |
+   | **Network Contributor** | Manage network resources, such as virtual networks and network interfaces. |
 
-- Sign in to the Azure portal as your user account and password.
+4. Sign out. 
+5. Sign in to the portal as the developer. Allow a few minutes for the assignments to take effect; sign out and back in again if needed.
+6. Create a storage account in **RG-Challenge02**. Use a globally unique, lowercase alphanumeric name such as `cancreatesa<initials>` (3–24 characters). Leave other settings at their defaults.
 
-  Make sure you are signed in to Azure as the administrator.
+### Check your work
 
-- Use role-based access control (RBAC) to allow a developer **new_account_as_developer** (must be created if not exits) to manage certain resources in the resource group **RG-Challenge02** by adding role assignments for the developer. The developer should only be able to manage the following resources: <u>storage accounts</u>, <u>virtual machines</u>, and <u>networks</u>.
+- [ ] All three roles are assigned to the developer at **RG-Challenge02** scope.
+- [ ] The developer can create a storage account in **RG-Challenge02**.
 
-- 
-  Verify the new access control by signing in to Azure as **new_account_as_developer**  and create a storage account named **cancreatesa[your initials]** default settings in the resource group  **RG-Challenge02** .
+## Create a virtual machine as the developer
 
-- It may take a few minutes for the new role assignments to be fully active.
+1. While signed in as the developer, create a virtual machine named **vm1** in **RG-Challenge02** and **East US**.
+2. Select **Windows Server 2025 Datacenter - x64 Gen2** as the image. Select **Standard_D2s_v7** if it is available in the region and for the subscription; otherwise choose an available general-purpose size with at least 2 vCPUs.
+3. Use a **Standard HDD** managed OS disk. Choose a local administrator name and enter a unique password.
+4. Enable RDP (port **3389**) only from your current public IP address where the portal provides that option. Leave unrelated settings at their defaults.
+5. Complete the deployment. In **RG-Challenge02** > **Activity log**, verify the developer's VM creation operation. Activity Log entries can take a few minutes to appear.
 
-- If you get an unexpected result when you check your work, please wait a few minutes and try again.
+### Check your work
 
+- [ ] **vm1** was created in **RG-Challenge02** by the developer.
+- [ ] The Activity Log shows the VM creation operation under the developer's identity.
 
-## Check your work
-- [ ] Verify that you have assigned the correct roles to the developer user account.
-- [ ] Verify that you have created the Azure Storage account successfully. [Assign Azure roles using the Azure portal - Azure RBAC | Microsoft Learn](https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal)
+## Design and test a custom VM role
 
+The **Virtual Machine Operator** role is a proof of concept that permits reading VM information and starting or deallocating VMs. In this section, stay signed in as the developer. The assigned built-in roles do not include permission to create Azure role definitions, so the final command should be denied.
 
-# Create a virtual machine as a developer
+1. Open **Cloud Shell** and select **PowerShell**. Confirm that the active account is the developer and the active subscription contains **RG-Challenge02**:
 
-- Make sure you are signed in to Azure as the developer: **new_account_as_developer**
+   ```powershell
+   Get-AzContext
+   ```
 
-- In the **RG-Challenge02** resource group, create an Azure VM named vm1. Configure the VM to use Windows Server 2016 Datacenter.
+2. (Optional) Review the relevant VM provider operations:
 
-- Set the size of the VM to Standard B2s with HDD managed disks and enable RDP access. Create a Server admin user named testuser with a password of Pa55w.rd1234. Turn off the Auto Shutdown option and disable all Monitoring options.
+   ```powershell
+   Get-AzProviderOperation "Microsoft.Compute/virtualMachines/*" |
+       Format-Table Operation, Description -AutoSize
+   ```
 
-- It may take a few minutes for the audit log to be updated after the virtual machine has been created.
+3. Build a custom role definition scoped to **RG-Challenge02**. The scope is derived from the active subscription:
 
-- If you get an unexpected result when you check your work, please wait a few minutes and try again.
+   ```powershell
+   $subscriptionId = (Get-AzContext).Subscription.Id
+   $roleScope = "/subscriptions/$subscriptionId/resourceGroups/RG-Challenge02"
+   $rolePath = Join-Path $HOME "VMOperatorRole.json"
 
-## Check your work
+   $roleDefinition = [ordered]@{
+       Name             = "Virtual Machine Operator"
+       IsCustom         = $true
+       Description      = "Can read, start, and deallocate virtual machines."
+       Actions          = @(
+           "Microsoft.Compute/*/read"
+           "Microsoft.Compute/virtualMachines/start/action"
+           "Microsoft.Compute/virtualMachines/deallocate/action"
+       )
+       NotActions       = @()
+       DataActions      = @()
+       NotDataActions   = @()
+       AssignableScopes = @($roleScope)
+   }
 
-- [ ] Verify that the Azure virtual machine has been created successfully.
+   $roleDefinition | ConvertTo-Json -Depth 5 |
+       Set-Content -Path $rolePath
+   Get-Content -Path $rolePath
+   ```
 
-- [ ] Verify that the audit log shows that the developer has created the virtual machine.
+4. Attempt to create the role definition:
 
+   ```powershell
+   New-AzRoleDefinition -InputFile $rolePath
+   ```
 
+   The expected result is an authorization error because the developer does not have `Microsoft.Authorization/roleDefinitions/write`. Do not switch to the administrator account for this test.
 
+### Check your work
 
-# Design a custom role
+- [ ] The JSON names the role **Virtual Machine Operator**, lists the three VM actions, and uses the **RG-Challenge02** assignable scope.
+- [ ] The developer can prepare the definition but cannot create the custom role.
 
-You need to design a custom role named Virtual Machine Operator that allows the user to view virtual machine information, and also start and shut down virtual machines.
+## Summary
 
-Make sure you are signed in to Azure as the administrator, (you must use your account like owner of your subscription).
+You assigned built-in roles at resource-group scope, verified that the developer could create storage and VM resources, and designed a custom role definition that the developer was not authorized to create.
 
-Start a CloudShell session by using Windows PowerShell. If prompted to create storage, select Show advanced settings. Then choose the **RG-Challenge01cs** resource group (If not exists create it), a new storage account named ** ****RG-Challenge06cs** **** in the **East US** region, and a new file share named **shell**.
+## References
 
-Use the following command to identify the operations associated with virtual machines:
-
-```powershell
-Get-AzProviderOperation "Microsoft.Compute/virtualmachines/*" | FT Operation, Description -AutoSize
-```
-
-Note the operations for read, start, and deallocate.
-
-Use the following command to retrieve the built-in role definition for Virtual Machine Contributor:
-
-```powershell
-Get-AzRoleDefinition -Name "Virtual Machine Contributor" | ConvertTo-Json | Out-File $home\clouddrive\VMOperatorRole.json
-```
-
-Open the VMOperatorRole.json file in the code editor by using the following commands:
-
-```powershell
-cd $home\clouddrive
-code VMOperatorRole.json
-```
-
-In the code editor, update the following:
-
-Change the Name property value to: **Virtual Machine Operator**
-Delete the line with the **Id** property
-Change the **IsCustom** property value to: **true**
-Change the Description property value to: **Lets you view, start and stop virtual machines.**
-Change the list of actions so that it contains only 3 actions (with no comma on end of the last one): **"Microsoft.Compute/*/read", "Microsoft.Compute/virtualMachines/start/action",**
-**"Microsoft.Compute/virtualMachines/deallocate/action"**
-Save the file by selecting the ellipsis and choosing Save. Close the code editor.
-
-Attempt to create the new custom role by executing the following statement:
-
-```powershell
-New-AzRoleDefinition -InputFile "VMOperatorRole.json"
-```
-
-You will receive an expected error stating that you are not authorized to create a custom role.
-
-## Check your work
-
-- [ ] Verify that you have created the required CloudShell storage account successfully.
-- [ ] Verify that you have created the required CloudShell file share successfully.
-
-- [ ] Verify that you have created the required custom role JSON file successfully.
-
-
-### Summary
-Congratulations, you have completed the Can You Use RBAC and Design a Custom Role? challenge.
-
-You have accomplished the following:
-
-- Assigned built-in roles and verified permissions.
-
-- Created a virtual machine as a developer.
-- Designed a custom role.
-
-
-
+- [Azure built-in roles](https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles)
+- [Azure custom roles](https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles)
+- [Create or update Azure custom roles using Azure PowerShell](https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles-powershell)
